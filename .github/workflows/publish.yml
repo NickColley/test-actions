@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fail the action
+        run: exit 1
+
       - name: Run a one-line script
         run: echo PUBLISH TO NPM
   github_releases:
