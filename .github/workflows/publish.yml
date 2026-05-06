@@ -2,10 +2,12 @@ name: 'RELEASE: publish to npm and GitHub Releases'
 
 on:
   workflow_dispatch:
-    dry_run:
-      type: boolean
-      description: dry run?
-      default: true
+    inputs:
+      dry_run:
+        type: boolean
+        description: dry run?
+        default: true
+
 jobs:
   build_release:
     name: Build the release
@@ -30,7 +32,7 @@ jobs:
       - name: Run a one-line script
         run: echo PUBLISH TO NPM
   dry_run_npm:
-    if: ${{ inputs.input1 == true }}
+    if: inputs.dry_run == true
     needs: [npm]
     name: Publish to npm
     runs-on: ubuntu-22.04
@@ -44,7 +46,7 @@ jobs:
       - name: Run a one-line script
         run: echo DRY RUN TO NPM
   publish_to_npm:
-    if: inputs.input1 == false
+    if: inputs.dry_run == false
     needs: [npm]
     name: Publish to npm
     runs-on: ubuntu-22.04
