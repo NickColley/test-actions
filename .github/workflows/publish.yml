@@ -4,7 +4,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  build_release:
+    name: Build the release
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo BUILD THE RELEASE
   npm:
+    needs: [build_release]
     name: Publish to npm
     runs-on: ubuntu-22.04
 
