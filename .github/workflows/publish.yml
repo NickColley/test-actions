@@ -33,7 +33,7 @@ jobs:
         run: echo PUBLISH TO NPM
   dry_run_npm:
     if: inputs.dry_run == true
-    needs: [npm]
+    needs: [prepare_npm]
     name: Publish to npm
     runs-on: ubuntu-22.04
 
@@ -47,7 +47,7 @@ jobs:
         run: echo DRY RUN TO NPM
   publish_to_npm:
     if: inputs.dry_run == false
-    needs: [npm]
+    needs: [prepare_npm]
     name: Publish to npm
     runs-on: ubuntu-22.04
 
