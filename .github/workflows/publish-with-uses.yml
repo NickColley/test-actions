@@ -1,4 +1,4 @@
-name: Publish using 'uses' with actions
+run-name: Publish (${{ inputs.dry_run ? 'Dry' : 'Real' }})
 
 on:
   workflow_dispatch:
