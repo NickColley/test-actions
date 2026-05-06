@@ -1,0 +1,9 @@
+name: Publish NPM
+description: actually publish it
+runs:
+  using: "composite"
+  steps:
+    - name: Publish NPM
+      run: echo Publish NPM
+      shell: bash
+

@@ -21,4 +21,4 @@ jobs:
         uses: ./.github/actions/publish-npm-dry-run
       - name: Dry run
         if: inputs.dry_run == false
-        uses: ./.github/actions/publish-npm-dry-run
+        uses: ./.github/actions/publish-npm
