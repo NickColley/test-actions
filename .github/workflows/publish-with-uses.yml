@@ -1,4 +1,4 @@
-run-name: Publish (${{ inputs.dry_run ? 'Dry' : 'Real' }})
+run-name: Publish (${{ inputs.dry_run && 'Dry' || 'Real' }})
 
 on:
   workflow_dispatch:
