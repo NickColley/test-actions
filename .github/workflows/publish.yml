@@ -1,0 +1,24 @@
+name: 'RELEASE: publish to npm and GitHub Releases'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  npm:
+    name: Publish to npm
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo PUBLISH TO NPM
+  github_releases:
+    name: Publish to GitHub Releases
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo PUBLISH TO GitHub Releases
