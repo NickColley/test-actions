@@ -2,7 +2,10 @@ name: 'RELEASE: publish to npm and GitHub Releases'
 
 on:
   workflow_dispatch:
-
+    dry_run:
+      type: boolean
+      description: dry run?
+      default: true
 jobs:
   build_release:
     name: Build the release
@@ -13,7 +16,7 @@ jobs:
 
       - name: Run a one-line script
         run: echo BUILD THE RELEASE
-  npm:
+  prepare_npm:
     needs: [build_release]
     name: Publish to npm
     runs-on: ubuntu-22.04
@@ -26,8 +29,36 @@ jobs:
 
       - name: Run a one-line script
         run: echo PUBLISH TO NPM
+  dry_run_npm:
+    if: ${{ inputs.input1 == true }}
+    needs: [npm]
+    name: Publish to npm
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail the action
+        run: exit 1
+
+      - name: Run a one-line script
+        run: echo DRY RUN TO NPM
+  publish_to_npm:
+    if: inputs.input1 == false
+    needs: [npm]
+    name: Publish to npm
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail the action
+        run: exit 1
+
+      - name: Run a one-line script
+        run: echo DRY RUN TO NPM
   github_releases:
-    needs: [npm] # Ensure that this job only runs if npm succeeds
+    needs: [dry_run_npm, publish_to_npm] # Ensure that this job only runs if npm succeeds
     name: Publish to GitHub Releases
     runs-on: ubuntu-22.04
 
@@ -36,3 +67,4 @@ jobs:
 
       - name: Run a one-line script
         run: echo PUBLISH TO GitHub Releases
+
