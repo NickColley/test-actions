@@ -19,6 +19,6 @@ jobs:
       - name: Dry run
         if: inputs.dry_run == true
         uses: ./.github/actions/publish-npm-dry-run
-      - name: Dry run
+      - name: Real publish
         if: inputs.dry_run == false
         uses: ./.github/actions/publish-npm
