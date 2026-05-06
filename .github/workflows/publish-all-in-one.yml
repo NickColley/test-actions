@@ -30,8 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fail the action
-        run: exit 1
+      # - name: Fail the action
+      #   run: exit 1
 
       - name: Run a one-line script
         run: echo DRY RUN TO NPM
@@ -44,11 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fail the action
-        run: exit 1
+      # - name: Fail the action
+      #   run: exit 1
 
       - name: Run a one-line script
-        run: echo DRY RUN TO NPM
+        run: echo PUBLISH TO NPM
   prepare_github_release:
     needs: [publish_to_npm, dry_run_npm]
     name: Prepare Github Release 
