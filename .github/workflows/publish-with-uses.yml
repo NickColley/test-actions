@@ -1,0 +1,13 @@
+name: Publish using 'uses' with actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        type: boolean
+        description: dry run?
+        default: true
+
+jobs:
+  prepare_npm_for_publish:
+    uses: ./.github/workflows/prepare-npm-for-publish.yml
