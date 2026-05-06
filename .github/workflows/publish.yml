@@ -20,7 +20,7 @@ jobs:
         run: echo BUILD THE RELEASE
   prepare_npm:
     needs: [build_release]
-    name: Publish to npm
+    name: Prepare npm 
     runs-on: ubuntu-22.04
 
     steps:
@@ -34,7 +34,7 @@ jobs:
   dry_run_npm:
     if: inputs.dry_run == true
     needs: [prepare_npm]
-    name: Publish to npm
+    name: Dry run npm
     runs-on: ubuntu-22.04
 
     steps:
