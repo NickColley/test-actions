@@ -5,4 +5,5 @@ runs:
   steps:
     - name: Publish NPM Dry Run
       run: echo Publish NPM DRY RUN
+      shell: bash
 
