@@ -11,3 +11,12 @@ on:
 jobs:
   prepare_npm_for_publish:
     uses: ./.github/workflows/prepare-npm-for-publish.yml
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dry run
+        if: inputs.dry_run == true
+        uses: ./.github/actions/publish-npm-dry-run
+      - name: Dry run
+        if: inputs.dry_run == false
+        uses: ./.github/actions/publish-npm-dry-run

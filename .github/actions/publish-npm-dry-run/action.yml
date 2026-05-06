@@ -1,0 +1,8 @@
+name: Publish NPM Dry Run
+description: Dont really publish it
+runs:
+  using: "composite"
+  steps:
+    - name: Publish NPM Dry Run
+      run: echo Publish NPM DRY RUN
+
