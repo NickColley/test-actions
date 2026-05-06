@@ -12,11 +12,10 @@ on:
 jobs:
   publish_npm:
     runs-on: ubuntu-latest
-    needs: [prepare_npm_for_publish]
     steps:
+      - uses: actions/checkout@v4
       - name: Do some prep for npm
         run: echo Preparing npm ready for publish to dry run or the real npm registry
-      - uses: actions/checkout@v4
       - name: Dry run
         if: inputs.dry_run == true
         uses: ./.github/actions/publish-npm-dry-run
