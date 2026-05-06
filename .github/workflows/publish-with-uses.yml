@@ -12,9 +12,20 @@ on:
 jobs:
   prepare_npm_for_publish:
     uses: ./.github/workflows/prepare-npm-for-publish.yml
-  publish:
+  publish_npm:
     runs-on: ubuntu-latest
     needs: [prepare_npm_for_publish]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dry run
+        if: inputs.dry_run == true
+        uses: ./.github/actions/publish-npm-dry-run
+      - name: Real publish
+        if: inputs.dry_run == false
+        uses: ./.github/actions/publish-npm
+  publish_github_release:
+    runs-on: ubuntu-latest
+    needs: [publish_npm]
     steps:
       - uses: actions/checkout@v4
       - name: Dry run
