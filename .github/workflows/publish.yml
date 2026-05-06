@@ -17,6 +17,7 @@ jobs:
       - name: Run a one-line script
         run: echo PUBLISH TO NPM
   github_releases:
+    needs: [npm] # Ensure that this job only runs if npm succeeds
     name: Publish to GitHub Releases
     runs-on: ubuntu-22.04
 
