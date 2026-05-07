@@ -17,8 +17,8 @@ jobs:
       - name: npm pack
         id: pack
         run: |
-        FILE_PATH=$(npm pack)
-        echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
+          FILE_PATH=$(npm pack)
+          echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
         run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
       - name: Adding markdown
