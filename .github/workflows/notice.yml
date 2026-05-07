@@ -21,19 +21,10 @@ jobs:
             echo "> [!NOTE]"  >> $GITHUB_STEP_SUMMARY
             echo "> Dry mode enabled, package will not be published to npm" >> $GITHUB_STEP_SUMMARY
           fi
-
+          echo "```bash" >> $GITHUB_STEP_SUMMARY
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
-
-          # Remove unneeded line
-          sed -i '/npm notice 📦/d' $GITHUB_STEP_SUMMARY
-
-          # Turn specific lines into markdown headings for readability
-          sed -i 's/npm notice Tarball Contents/## Tarball Contents/g' $GITHUB_STEP_SUMMARY
-          sed -i 's/npm notice Tarball Details/## Tarball Details/g' $GITHUB_STEP_SUMMARY
-
-          # Remove anymore npm prefixes
-          sed -i 's/npm notice//g' $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
 
           echo "FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: upload artifact
