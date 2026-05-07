@@ -36,5 +36,5 @@ jobs:
           echo ${FILES_IN_ARCHIVE} >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: publish
-        run: npm publish ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
+        run: npm publish ${{ inputs.dry_run == true && '--dry-run' || '' }}
 
