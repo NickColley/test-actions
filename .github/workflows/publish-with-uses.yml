@@ -3,16 +3,10 @@ run-name: "RELEASE: npm publish${{ inputs.dry_run && '( Dry run)' || '' }}"
 
 on:
   workflow_dispatch:
-    inputs:
       dry_run:
         type: boolean
-        description: dry run? # when dry run is enabled change the environment?
+        description: Dry run
         default: true
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        default: "development"
-        required: true
 
 env:
   DRY_RUN: inputs.dry_run == true
