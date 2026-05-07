@@ -24,7 +24,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v7
         with:
-          path: steps.pack.outputs.ARCHIVE_FILE_PATH
+          path: ${{steps.pack.outputs.ARCHIVE_FILE_PATH}}
           archive: false # already archived
       - name: Adding markdown
         run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
