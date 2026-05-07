@@ -19,7 +19,7 @@ jobs:
         run: |
           if [ ${{ inputs.dry_run == true }} ]; then
             echo "> [!NOTE]"  >> $GITHUB_STEP_SUMMARY
-            echo "> It's a dry run" >> $GITHUB_STEP_SUMMARY
+            echo "> Dry mode enabled" >> $GITHUB_STEP_SUMMARY
           fi
 
           # Assign the result of npm pack to a variable
