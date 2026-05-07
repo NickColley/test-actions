@@ -27,4 +27,9 @@ jobs:
           path: ${{steps.pack.outputs.ARCHIVE_FILE_PATH}}
           archive: false # already archived
       - name: Adding markdown
-        run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
+        run: |
+          FILES_IN_ARCHIVE=$(tar -ztvf test-actions-1.0.0.tgz)
+          echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo ${FILES_IN_ARCHIVE} >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
