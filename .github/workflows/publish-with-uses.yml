@@ -1,12 +1,12 @@
 name: Publish
-run-name: Publish (${{ inputs.dry_run && 'Dry' || 'Real' }})
+run-name: RELEASE: npm publish (${{ inputs.dry_run && '(Dry run)' || '' }}
 
 on:
   workflow_dispatch:
     inputs:
       dry_run:
         type: boolean
-        description: dry run?
+        description: dry run? # when dry run is enabled change the environment?
         default: true
       environment:
         description: 'Environment to run tests against'
@@ -35,8 +35,8 @@ jobs:
       - name: Do some prep for github
         run: echo prepare some stuff ready for real or dry github release
       - name: Dry run
-        if: inputs.dry_run == true
+        if: inputs.dry_run
         uses: ./.github/actions/publish-npm-dry-run
       - name: Real publish
-        if: inputs.dry_run == false
+        if: !inputs.dry_run
         uses: ./.github/actions/publish-npm
