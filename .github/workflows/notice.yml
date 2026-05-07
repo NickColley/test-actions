@@ -14,9 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: npm pack
+        id: pack
+        run: |
+        FILE_PATH=$(npm pack)
+        echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
-        run: echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
-      - name: debug
-        run: echo "::debug::Set the Octocat variable"
+        run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
       - name: Adding markdown
         run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
