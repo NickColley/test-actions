@@ -24,10 +24,10 @@ jobs:
               echo " "
             } >> $GITHUB_STEP_SUMMARY
           fi
-          echo "```bash" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
-          echo "```" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
           echo "FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: upload artifact
