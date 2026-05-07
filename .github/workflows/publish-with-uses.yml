@@ -11,6 +11,7 @@ on:
       environment:
         description: 'Environment to run tests against'
         type: environment
+        default: "development"
         required: true
 
 jobs:
