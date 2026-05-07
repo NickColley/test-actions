@@ -1,0 +1,21 @@
+{
+  "name": "test-actions",
+  "version": "1.0.0",
+  "description": "Repo to play with GitHub actions",
+  "homepage": "https://github.com/NickColley/test-actions#readme",
+  "bugs": {
+    "url": "https://github.com/NickColley/test-actions/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickColley/test-actions.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build:package": "echo 'PACKAGE BUILT'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
