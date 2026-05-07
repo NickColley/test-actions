@@ -30,7 +30,7 @@ jobs:
         run: |
           # Assign the result of npm pack to a variable
           # Redirect the stderr to the summary so we can see the package output easier
-          FILE_PATH=$(npm pack) >>$GITHUB_STEP_SUMMARY 2>&1
+          FILE_PATH=$(npm pack 2>>$GITHUB_STEP_SUMMARY)
           echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
         run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
