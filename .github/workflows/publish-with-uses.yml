@@ -3,6 +3,7 @@ run-name: "RELEASE: npm publish${{ inputs.dry_run && '( Dry run)' || '' }}"
 
 on:
   workflow_dispatch:
+    inputs:
       dry_run:
         type: boolean
         description: Dry run
