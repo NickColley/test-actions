@@ -1,5 +1,4 @@
-name: 'RELEASE: npm publish'
-run-name: "RELEASE: npm publish${{ inputs.dry_run && ' (Dry run)' || '' }}"
+name: notice
 
 on:
   workflow_dispatch:
@@ -8,10 +7,6 @@ on:
         type: boolean
         description: Dry run
         default: true
-
-env:
-  DRY_RUN: inputs.dry_run == true
-  PRODUCTION_RUN: inputs.dry_run == false
 
 jobs:
   publish_npm:
