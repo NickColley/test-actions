@@ -39,8 +39,8 @@ jobs:
       - name: Do some prep for github
         run: echo prepare some stuff ready for real or dry github release
       - name: Dry run
-        if: DRY_RUN
+        if: ${DRY_RUN}
         uses: ./.github/actions/publish-npm-dry-run
       - name: Real publish
-        if: PRODUCTION_RUN
+        if: ${PRODUCTION_RUN}
         uses: ./.github/actions/publish-npm
