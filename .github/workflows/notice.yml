@@ -28,11 +28,18 @@ jobs:
       - name: npm pack
         id: pack
         run: |
+          echo '## npm pack output' >> $GITHUB_STEP_SUMMARY
           # Assign the result of npm pack to a variable
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
 
-          sed -i 's/npm notice/potato/g' $GITHUB_STEP_SUMMARY
+          # Turn specific lines into markdown headings for readability
+          sed -i 's/npm notice 📦/###/g' $GITHUB_STEP_SUMMARY
+          sed -i 's/npm notice Tarball Contents/#### Tarball Contents/g' $GITHUB_STEP_SUMMARY
+          sed -i 's/npm notice Tarball Details/#### Tarball Details/g' $GITHUB_STEP_SUMMARY
+
+          # Remove anymore npm prefixes
+          sed -i 's/npm notice//g' $GITHUB_STEP_SUMMARY
 
           echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
