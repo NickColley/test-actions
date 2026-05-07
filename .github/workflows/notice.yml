@@ -14,12 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Adding markdown
+        run: |
+          {
+            echo '# Successfully ran :rocket:'
+            echo ''
+            echo '## Workflow Details'
+            echo '- Branch: ${{ github.ref }}'
+            echo '- Commit: ${{ github.sha }}'
+            echo '- Actor: ${{ github.actor }}'
+            echo ''
+          } >> $GITHUB_STEP_SUMMARY
       - name: npm pack
         id: pack
         run: |
           # Assign the result of npm pack to a variable
           # Redirect the stderr to the summary so we can see the package output easier
-          FILE_PATH=$(npm pack) &>> $GITHUB_STEP_SUMMARY
+          FILE_PATH=$(npm pack) >>$GITHUB_STEP_SUMMARY 2>&1
           echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
         run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
@@ -28,13 +39,6 @@ jobs:
         with:
           path: ${{steps.pack.outputs.ARCHIVE_FILE_PATH}}
           archive: false # already archived
-      - name: Adding markdown
-        run: |
-          FILES_IN_ARCHIVE=$(tar -ztvf test-actions-1.0.0.tgz)
-          echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
-          echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo ${FILES_IN_ARCHIVE} >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
       - name: publish
         run: npm publish ${{ inputs.dry_run == true && '--dry-run' || '' }}
 
