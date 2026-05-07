@@ -23,8 +23,10 @@ jobs:
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
 
+          # Remove unneeded line
+          sed -i 's/npm notice 📦/d' $GITHUB_STEP_SUMMARY
+
           # Turn specific lines into markdown headings for readability
-          sed -i 's/npm notice 📦/# 📦/g' $GITHUB_STEP_SUMMARY
           sed -i 's/npm notice Tarball Contents/## Tarball Contents/g' $GITHUB_STEP_SUMMARY
           sed -i 's/npm notice Tarball Details/## Tarball Details/g' $GITHUB_STEP_SUMMARY
 
