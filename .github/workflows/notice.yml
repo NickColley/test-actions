@@ -14,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create annotation for build error
+      - name: notice
         run: echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
+      - name: debug
+        run: echo "::debug::Set the Octocat variable"
       - name: Adding markdown
         run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
