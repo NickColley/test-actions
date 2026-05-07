@@ -17,7 +17,9 @@ jobs:
       - name: npm pack
         id: pack
         run: |
-          FILE_PATH=$(npm pack)
+          # Assign the result of npm pack to a variable
+          # Redirect the stderr to the summary so we can see the package output easier
+          FILE_PATH=$(npm pack) 2> >> $GITHUB_STEP_SUMMARY
           echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: notice
         run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
@@ -33,3 +35,6 @@ jobs:
           echo '```bash' >> $GITHUB_STEP_SUMMARY
           echo ${FILES_IN_ARCHIVE} >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: publish
+        run: npm publish ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
+
