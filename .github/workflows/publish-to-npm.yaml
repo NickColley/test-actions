@@ -6,7 +6,7 @@ on:
     inputs:
       dry_run:
         type: boolean
-        description: Dry run
+        description: Dry run (TEST ACTION)
         default: true
 
 jobs:
