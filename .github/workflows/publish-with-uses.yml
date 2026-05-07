@@ -14,6 +14,10 @@ on:
         default: "development"
         required: true
 
+env:
+  DRY_RUN: inputs.dry_run == true
+  PRODUCTION_RUN: inputs.dry_run == false
+
 jobs:
   publish_npm:
     runs-on: ubuntu-latest
@@ -35,8 +39,8 @@ jobs:
       - name: Do some prep for github
         run: echo prepare some stuff ready for real or dry github release
       - name: Dry run
-        if: inputs.dry_run
+        if: DRY_RUN
         uses: ./.github/actions/publish-npm-dry-run
       - name: Real publish
-        if: !inputs.dry_run
+        if: PRODUCTION_RUN
         uses: ./.github/actions/publish-npm
