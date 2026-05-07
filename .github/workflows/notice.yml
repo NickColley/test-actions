@@ -1,0 +1,24 @@
+name: 'RELEASE: npm publish'
+run-name: "RELEASE: npm publish${{ inputs.dry_run && ' (Dry run)' || '' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        type: boolean
+        description: Dry run
+        default: true
+
+env:
+  DRY_RUN: inputs.dry_run == true
+  PRODUCTION_RUN: inputs.dry_run == false
+
+jobs:
+  publish_npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create annotation for build error
+        run: echo "::error file=app.js,line=1::Missing semicolon"
+      - name: Adding markdown
+        run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
