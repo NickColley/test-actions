@@ -14,36 +14,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Adding markdown
-        run: |
-          {
-            echo '# Successfully ran :rocket:'
-            echo ''
-            echo '## Workflow Details'
-            echo '- Branch: ${{ github.ref }}'
-            echo '- Commit: ${{ github.sha }}'
-            echo '- Actor: ${{ github.actor }}'
-            echo ''
-          } >> $GITHUB_STEP_SUMMARY
       - name: npm pack
         id: pack
         run: |
-          echo '## npm pack output' >> $GITHUB_STEP_SUMMARY
+          echo "# Results of publishing${{ inputs.dry_run == true && ' (Dry run)' || '' }}" >> $GITHUB_STEP_SUMMARY
+
           # Assign the result of npm pack to a variable
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
 
           # Turn specific lines into markdown headings for readability
-          sed -i 's/npm notice 📦/###/g' $GITHUB_STEP_SUMMARY
-          sed -i 's/npm notice Tarball Contents/#### Tarball Contents/g' $GITHUB_STEP_SUMMARY
-          sed -i 's/npm notice Tarball Details/#### Tarball Details/g' $GITHUB_STEP_SUMMARY
+          sed -i 's/npm notice 📦/# 📦/g' $GITHUB_STEP_SUMMARY
+          sed -i 's/npm notice Tarball Contents/## Tarball Contents/g' $GITHUB_STEP_SUMMARY
+          sed -i 's/npm notice Tarball Details/## Tarball Details/g' $GITHUB_STEP_SUMMARY
 
           # Remove anymore npm prefixes
           sed -i 's/npm notice//g' $GITHUB_STEP_SUMMARY
 
           echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
-      - name: notice
-        run: echo "::notice file=${{steps.pack.outputs.ARCHIVE_FILE_PATH}}::Archive created"
       - name: upload artifact
         uses: actions/upload-artifact@v7
         with:
