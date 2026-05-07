@@ -19,10 +19,9 @@ jobs:
         run: |
           if [ ${{ inputs.dry_run == true }} ]; then
             echo "> [!NOTE]"  >> $GITHUB_STEP_SUMMARY
-            echo "> Dry mode enabled" >> $GITHUB_STEP_SUMMARY
+            echo "> Dry mode enabled, package will not be published to npm" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Assign the result of npm pack to a variable
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
 
@@ -36,11 +35,11 @@ jobs:
           # Remove anymore npm prefixes
           sed -i 's/npm notice//g' $GITHUB_STEP_SUMMARY
 
-          echo "ARCHIVE_FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
+          echo "FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
       - name: upload artifact
         uses: actions/upload-artifact@v7
         with:
-          path: ${{steps.pack.outputs.ARCHIVE_FILE_PATH}}
+          path: ${{steps.pack.outputs.FILE_PATH}}
           archive: false # already archived
       - name: publish
         run: npm publish ${{ inputs.dry_run == true && '--dry-run' || '' }}
