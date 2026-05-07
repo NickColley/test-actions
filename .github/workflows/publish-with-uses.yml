@@ -21,10 +21,10 @@ jobs:
       - name: Do some prep for npm
         run: echo Preparing npm ready for publish to dry run or the real npm registry
       - name: Dry run
-        if: inputs.dry_run == true
+        if: env.DRY_RUN
         uses: ./.github/actions/publish-npm-dry-run
       - name: Real publish
-        if: inputs.dry_run == false
+        if: env.PRODUCTION_RUN
         uses: ./.github/actions/publish-npm
   publish_github_release:
     runs-on: ubuntu-latest
