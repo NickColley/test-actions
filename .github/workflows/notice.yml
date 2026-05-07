@@ -17,16 +17,19 @@ jobs:
       - name: npm pack
         id: pack
         run: |
-          if [ ${{ inputs.dry_run == true }} ]; then
-            {
+          {
+            if [ ${{ inputs.dry_run == true }} ]; then
               echo "> [!NOTE]"
               echo "> Dry mode enabled, package will not be published to npm"
               echo " "
-            } >> $GITHUB_STEP_SUMMARY
-          fi
-          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "## result of `npm pack`"
+            echo "\`\`\`bash"
+          } >> $GITHUB_STEP_SUMMARY
+
           # Redirect the stderr to the summary so we can see the package output easier
           FILE_PATH=$(npm pack 2>> $GITHUB_STEP_SUMMARY)
+
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
           echo "FILE_PATH=${FILE_PATH}" >> $GITHUB_OUTPUT
