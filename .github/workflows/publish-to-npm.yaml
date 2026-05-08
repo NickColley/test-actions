@@ -56,4 +56,4 @@ jobs:
 
 
       - name: Publish to npm
-      run: npm publish --workspace govuk-frontend --provenance --tag ${{steps.generate_tag.outputs.NPM_TAG}} ${{ inputs.dry_run == true && '--dry-run' || '' }}
+        run: npm publish --workspace govuk-frontend --provenance --tag ${{steps.generate_tag.outputs.NPM_TAG}} ${{ inputs.dry_run == true && '--dry-run' || '' }}
