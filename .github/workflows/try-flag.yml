@@ -1,0 +1,20 @@
+name: Flag
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        type: boolean
+        description: Dry run
+        default: true
+
+jobs:
+  publish_npm:
+    name: Publish
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: publish
+        if: !inputs.dry_run
+        run: npm whoami
+
